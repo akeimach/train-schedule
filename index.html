@@ -2,8 +2,79 @@
 <html>
 <head>
     <title></title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
 </head>
 <body>
 
+    <div class="container-fluid">
+        <br>
+        <div class="jumbotron">
+            <h1 class="text-center">Train Schedule Authority</h1>
+            <h3 class="text-center">By Alyssa Keimach</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <h3 class="card-header">Current Train Schedule</h3>
+                    <table class="card-body table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Train Name</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Frequency (min)</th>
+                                <th scope="col">Next Arrival</th>
+                                <th scope="col">Minutes Away</th>
+                            </tr>
+                        </thead>
+                        <tbody id="train-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <h3 class="card-header">Add Train</h3>
+                    <form class="card-body">
+                        <div class="form-group">
+                            <label for="train-name">Train Name</label>
+                            <input class="form-control" id="train-name" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="train-destination">Destination</label>
+                            <input class="form-control" id="train-destination" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="train-first-arrival">First Train Time (HH:mm)</label>
+                            <input class="form-control" id="train-first-arrival" type="text" pattern="([0-1][0-9]|20|21|22|23):[0-5][0-9]">
+                        </div>
+                        <div class="form-group">
+                            <label for="train-frequency">Frequency (min)</label>
+                            <input class="form-control" id="train-frequency" type="number">
+                        </div>
+                        <button class="btn btn-primary" id="submit-train" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    </div>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <!-- Moment JS -->
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js></script>
+    <!-- External JS -->
+    <script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>
