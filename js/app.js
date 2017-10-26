@@ -74,12 +74,22 @@ $(document.body).ready(function(){
         trainFirstArrival = moment().format("YYYY-MM-DD") + " " + $("#train-first-arrival").val().trim();
         trainFrequency = $("#train-frequency").val().trim();
 
+        if ((trainName === "") || (trainDestination === "")) {
+            return;
+        }
+
         database.ref().push({
             trainName: trainName,
             trainDestination: trainDestination,
             trainFirstArrival: trainFirstArrival,
             trainFrequency: trainFrequency
         });
+
+        $("#train-name").val("");
+        $("#train-destination").val("");
+        $("#train-first-arrival").val("");
+        $("#train-frequency").val("");
+
     });
 
 
