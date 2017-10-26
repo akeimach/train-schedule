@@ -10,25 +10,67 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
-
-var trainName;
-var trainDestination;
 var trainFirstArrival;
 var trainFrequency;
 var trainNextArrival;
 var trainNextMinutes;
 var dateTimeFormat = "YYYY-MM-DD HH:mm";
+var intervalId;
+var currentMinutes;
+
+
+function calcArrival() {
+    var currentTime = moment().format(dateTimeFormat);
+    var initialTime = moment(trainFirstArrival, dateTimeFormat);
+    // Get time in minutes since first train departed
+    var elapsedTime = parseInt(moment(currentTime).diff(initialTime, "minutes"));
+    if (elapsedTime < 0) {
+        // First train comes in the future
+        // elapsed = initial - current = abs(current - initial)
+        trainNextMinutes = Math.abs(elapsedTime);
+        trainNextArrival = moment(initialTime).format("hh:mm a");
+    }
+    else {
+        // Mod for remainder until next interval time
+        trainNextMinutes = trainFrequency - (elapsedTime % trainFrequency);
+        // Add minutes remaining to current time, convert to time of day
+        trainNextArrival = moment(currentTime).add(trainNextMinutes, "minutes").format("hh:mm a");
+    }
+}
+
+
+function checkMinutes() {
+    var time = new Date();
+    var minutes = time.getMinutes();
+    if (minutes !== currentMinutes) { //another minute has passed
+        currentMinutes = minutes;
+        //call the update function
+        database.ref().on("value", function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+
+                trainFirstArrival = childSnapshot.val().trainFirstArrival;
+                trainFrequency = parseInt(childSnapshot.val().trainFrequency);
+                // recalculate
+                calcArrival();
+                // Update the ids for that key
+                $("#time" + childSnapshot.key).text(trainNextArrival);
+                $("#mins" + childSnapshot.key).text(trainNextMinutes);
+            });
+        });
+    }
+}
 
 
 $(document.body).ready(function(){
 
+    intervalId = setInterval(checkMinutes, 1000);
 
     $("#submit-train").on("click", function(event) {
 
         event.preventDefault();
 
-        trainName = $("#train-name").val().trim();
-        trainDestination = $("#train-destination").val().trim();
+        var trainName = $("#train-name").val().trim();
+        var trainDestination = $("#train-destination").val().trim();
         trainFirstArrival = moment().format("YYYY-MM-DD") + " " + $("#train-first-arrival").val().trim();
         trainFrequency = $("#train-frequency").val().trim();
 
@@ -43,36 +85,19 @@ $(document.body).ready(function(){
 
     database.ref().on("child_added", function(snapshot) {
 
-        trainName = snapshot.val().trainName;
-        trainDestination = snapshot.val().trainDestination;
+        var trainName = snapshot.val().trainName;
+        var trainDestination = snapshot.val().trainDestination;
         trainFirstArrival = snapshot.val().trainFirstArrival;
         trainFrequency = parseInt(snapshot.val().trainFrequency);
 
-        var currentTime = moment().format(dateTimeFormat);
-        var initialTime = moment(trainFirstArrival, dateTimeFormat);
-
-        // Get time in minutes since first train departed
-        var elapsedTime = parseInt(moment(currentTime).diff(initialTime, "minutes"));
-
-        if (elapsedTime < 0) {
-            // First train comes in the future
-            // elapsed = initial - current = abs(current - initial)
-            trainNextMinutes = Math.abs(elapsedTime);
-            trainNextArrival = moment(initialTime).format("hh:mm a");
-        }
-        else {
-            // Mod for remainder until next interval time
-            trainNextMinutes = trainFrequency - (elapsedTime % trainFrequency);
-            // Add minutes remaining to current time, convert to time of day
-            trainNextArrival = moment(currentTime).add(trainNextMinutes, "minutes").format("hh:mm a");
-        }
+        calcArrival();
 
         var addTr = $("<tr>");
         addTr.append("<td>" + trainName + "</td>");
         addTr.append("<td>" + trainDestination + "</td>");
         addTr.append("<td>" + trainFrequency + "</td>");
-        addTr.append("<td>" + trainNextArrival + "</td>");
-        addTr.append("<td>" + trainNextMinutes + "</td>");
+        addTr.append("<td id='time" + snapshot.key + "'>" + trainNextArrival + "</td>");
+        addTr.append("<td id='mins" + snapshot.key + "'>" + trainNextMinutes + "</td>");
 
         $("#train-table").append(addTr);
 
