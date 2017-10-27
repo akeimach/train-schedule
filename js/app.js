@@ -103,8 +103,8 @@ $(document.body).ready(function(){
         calcArrival();
 
         var addTr = $("<tr>");
-        addTr.append("<td>" + trainName + "</td>");
-        addTr.append("<td>" + trainDestination + "</td>");
+        addTr.append("<td>" + trainName.toUpperCase() + "</td>");
+        addTr.append("<td>" + trainDestination.toUpperCase() + "</td>");
         addTr.append("<td>" + trainFrequency + "</td>");
         addTr.append("<td id='time" + snapshot.key + "'>" + trainNextArrival + "</td>");
         addTr.append("<td id='mins" + snapshot.key + "'>" + trainNextMinutes + "</td>");
