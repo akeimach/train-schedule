@@ -1,17 +1,9 @@
 @font-face {
-    font-family: 'Scoreboard';
-    src: url('slkscr-webfont.woff2') format('woff2'),
-         url('slkscr-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'Erbos Draco';
-    src: url('Erbos-Draco-1st-Open-NBP.eot');
-    src: url('Erbos-Draco-1st-Open-NBP.eot?#iefix') format('embedded-opentype'),
-        url('Erbos-Draco-1st-Open-NBP.woff') format('woff'),
-        url('Erbos-Draco-1st-Open-NBP.ttf') format('truetype');
+    src: url('erbos-draco.eot');
+    src: url('erbos-draco.eot?#iefix') format('embedded-opentype'),
+        url('erbos-draco.woff') format('woff'),
+        url('erbos-draco.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

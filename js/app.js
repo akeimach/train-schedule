@@ -28,13 +28,13 @@ function calcArrival() {
         // First train comes in the future
         // elapsed = initial - current = abs(current - initial)
         trainNextMinutes = Math.abs(elapsedTime);
-        trainNextArrival = moment(initialTime).format("hh:mm a");
+        trainNextArrival = moment(initialTime).format("hh:mm A");
     }
     else {
         // Mod for remainder until next interval time
         trainNextMinutes = trainFrequency - (elapsedTime % trainFrequency);
         // Add minutes remaining to current time, convert to time of day
-        trainNextArrival = moment(currentTime).add(trainNextMinutes, "minutes").format("hh:mm a");
+        trainNextArrival = moment(currentTime).add(trainNextMinutes, "minutes").format("hh:mm A");
     }
 }
 

@@ -1,9 +1,4 @@
-
-/** {
-    outline: 1px solid red;
-}*/
-
-.flex-center {
+.flex-center, .flex-left {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-flow: column wrap;
@@ -13,34 +8,30 @@
     width: 95%;
     margin: 15px auto;
     background: #0F0F0F;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 .flex-left {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: column wrap;
-    flex-flow: column wrap;
     justify-content: left;
     align-items: left;
     width: 98%;
     padding: 1%;
-    margin: 15px auto;
-   
 }
 
-body {
-    background: #595959;
-    font-family: 'Erbos Draco', 'Scoreboard', 'Courier New', sans-serif;
+body, button, input {
+    background: #3B3B3B;
+    font-family: 'Erbos Draco', 'Courier New', sans-serif;
     font-size: 20px;
     line-height: 150%;
     padding: 15px;
     color: #FFFFFF;
 }
 
-tr, th, td {
+tr, th, td, button, input {
     width: 20%;
-    border: 1px solid #595959;
+    padding: 0px;
+    border: 3px solid #0F0F0F;
+    border-bottom-color: #3B3B3B;
     text-align: left;
 }
 
@@ -50,16 +41,15 @@ h1, h3 {
 }
 
 button, input {
-    background: #595959;
-    font-family: 'Erbos Draco', 'Scoreboard', 'Courier New', sans-serif;
-    color: #FFFFFF;
-    font-size: 20px;
-    line-height: 150%;
-    /*padding: 15px;*/
     margin: 3px;
+    margin-left: 10px;
+    background-color: #0F0F0F;
+}
+
+button {
+    padding: 5px;
+    margin-top: 15px;
     border: none;
-    /*align-items:  top;*/
-    /*vertical-align: center;*/
 }
 
 button:focus, input:focus {
