@@ -1,0 +1,41 @@
+
+* {
+    outline: 1px solid red;
+}
+
+.flex-center {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    margin: 15px auto;
+}
+
+.flex-left {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+    margin: 15px auto;
+}
+
+body {
+    /*background: #262626;*/
+    font-family: 'scoreboard', 'Courier New', sans-serif;
+    font-size: 26px;
+    padding: 15px;
+    color: #E0E0CE;
+}
+
+tr, th, td {
+    width: 20%;
+    border: 1px solid green;
+    text-align: left;
+}
+
